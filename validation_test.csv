@@ -1,0 +1,8 @@
+input_parameter, desired_result
+5, 5
+0, 0
+9, 34
+-1, Input must be a non-negative integer.
+abc, Input must be an integer.
+33 a, Input must be an integer.
+, There is no input.
