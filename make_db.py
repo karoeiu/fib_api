@@ -5,7 +5,7 @@ with open('./sql/create_table.sql') as f:
 
 conn = sqlite3.connect('fib_log.db')
 c = conn.cursor()
+c.execute("DROP TABLE IF EXISTS fib_log")
 c.execute(query)
-c.execute("DELETE FROM fib_log")
 conn.commit()
 conn.close()

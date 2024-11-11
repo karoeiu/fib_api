@@ -12,15 +12,15 @@ ERROR_MESSAGES = {
     "null": "There is no input."
 }
 
-def save_result(n, status: int):
-    query = "INSERT INTO fib_log (id, access_time, input_parameter, status_code) VALUES (?, ?, ?, ?)"
+def save_result(n, result: int):
+    query = "INSERT INTO fib_log (id, access_time, input_parameter, result) VALUES (?, ?, ?, ?)"
 
     conn = sqlite3.connect('fib_log.db')
     cur = conn.cursor()
     
     id = cur.execute("SELECT COUNT(*) FROM fib_log").fetchone()[0] + 1
 
-    cur.execute(query, (id, datetime.datetime.now().isoformat(), n, status))
+    cur.execute(query, (id, datetime.datetime.now().isoformat(), n, result))
     
     conn.commit()
     conn.close()
@@ -67,7 +67,7 @@ def get_fibonacci(n: str):
     try:
         valid_input = validate_input(n)
         result = fibonacci(valid_input)
-        save_result(valid_input, STATUS_SUCCESS)
+        save_result(valid_input, str(result))
         return JSONResponse(
             status_code=STATUS_SUCCESS,
             content={"result": result}
