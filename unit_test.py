@@ -2,17 +2,9 @@
 import requests
 import pytest
 import csv
+from utils import STATUS_SUCCESS, STATUS_BAD_REQUEST
 
 BASE_URL = "http://54.64.165.29:8000"  # 実際のAPIのURL
-
-STATUS_BAD_REQUEST = 400
-STATUS_SUCCESS = 200
-
-ERROR_MESSAGES = {
-    "negative": "Input must be a non-negative integer.",
-    "invalid": "Input must be an integer.",
-    "null": "There is no input."
-}
 
 def read_test_cases():
     with open("validation_test.csv") as f:
