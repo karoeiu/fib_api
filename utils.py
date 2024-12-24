@@ -1,5 +1,6 @@
 import sqlite3
 import datetime
+import numpy as np
 
 STATUS_BAD_REQUEST = 400
 STATUS_SUCCESS = 200
@@ -47,14 +48,26 @@ def validate_input(n: str) -> int:
             save_result(0, ERROR_MESSAGES["invalid"])
             raise ValueError(ERROR_MESSAGES["invalid"])
 
+def mat_pow(mat, n):
+    result = [[1, 0], [0, 1]]
+    base = mat
+
+    while n > 0:
+        if n % 2 == 1:
+            result = np.dot(result, base)
+        base = np.dot(base, base)
+        n //= 2
+
+    return result
+
 # 第0項は0とする。
 def fibonacci(n: int) -> int:
     if n == 0:
         return 0
     if n == 1:
         return 1
-    a, b = 0, 1
-    for _ in range(2, n + 1):
-        res = a + b
-        a, b = b, res
-    return b
+    
+    mat = [[1, 1], [1, 0]]
+
+    mat = mat_pow(mat, n)
+    return mat[1][0]
